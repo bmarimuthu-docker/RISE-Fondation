@@ -71,6 +71,7 @@ try {
   app.use('/api/lessons', require('./routes/lessons'))
   app.use('/api/tutor', require('./routes/tutor'))
   app.use('/api/admin', require('./routes/admin'))
+  app.use('/api', require('./routes/live'))  // Live data endpoints
   console.log('✅ All routes loaded successfully')
 } catch (error) {
   console.warn('⚠️  Warning loading routes:', error.message)
