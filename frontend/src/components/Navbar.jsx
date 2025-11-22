@@ -34,7 +34,7 @@ export default function Navbar({ isLoggedIn, user, onLogout }) {
               </>
             ) : (
               <>
-                <span className="text-sm">{user?.name}</span>
+                <span className="text-sm">{user?.firstName || user?.name || 'User'}</span>
                 <button
                   onClick={onLogout}
                   className="px-4 py-2 text-sm hover:text-red-400 transition"
