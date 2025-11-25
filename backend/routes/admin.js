@@ -8,11 +8,22 @@ const router = express.Router()
 router.get('/users', verifyToken, isAdmin, async (req, res) => {
   try {
     const result = await pool.query(
-      'SELECT id, name, email, role, created_at FROM users ORDER BY created_at DESC'
+      `SELECT id, first_name, last_name, email, role, is_verified, created_at, last_login 
+       FROM users 
+       ORDER BY created_at DESC`
     )
 
     res.json({
-      users: result.rows
+      users: result.rows.map(user => ({
+        id: user.id,
+        email: user.email,
+        firstName: user.first_name,
+        lastName: user.last_name,
+        role: user.role,
+        isVerified: user.is_verified,
+        createdAt: user.created_at,
+        lastLogin: user.last_login
+      }))
     })
   } catch (err) {
     console.error(err)
@@ -51,7 +62,7 @@ router.get('/analytics', verifyToken, isAdmin, async (req, res) => {
       analytics: {
         totalUsers: parseInt(totalUsersResult.rows[0].count),
         totalLessons: parseInt(lessonsResult.rows[0].count),
-        averageProgress: avgProgressResult.rows[0].avg_progress || 0
+        averageProgress: Number(avgProgressResult.rows[0].avg_progress) || 0
       }
     })
   } catch (err) {

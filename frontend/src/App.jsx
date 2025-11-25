@@ -13,6 +13,7 @@ import VerifyEmail from './pages/VerifyEmail'
 import ForgotPassword from './pages/ForgotPassword'
 import ResetPassword from './pages/ResetPassword'
 import NotFound from './pages/NotFound'
+import Contact from './pages/Contact'
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
@@ -58,6 +59,7 @@ function App() {
               <Route path="/dashboard" element={isLoggedIn ? <Dashboard user={user} /> : <Navigate to="/login" />} />
               <Route path="/lessons" element={<Lessons />} />
               <Route path="/lessons/:lessonId" element={<LessonDetail />} />
+              <Route path="/contact" element={<Contact />} />
               <Route path="/admin" element={isLoggedIn && user?.role === 'admin' ? <AdminPanel /> : <Navigate to="/" />} />
               <Route path="*" element={<NotFound />} />
             </Routes>

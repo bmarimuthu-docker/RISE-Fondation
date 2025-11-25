@@ -12,39 +12,36 @@ ssh pi@YOUR_PI_IP
 git clone https://github.com/bmarimuthu-docker/RISE-Fondation.git
 cd RISE-Fondation
 
-# 3. Run the automated setup
-bash scripts/install.sh  # If available, or run manual steps below
-
-# 4. Install all dependencies at once
+# 3. Install all dependencies at once
 sudo apt update && sudo apt upgrade -y
 sudo apt install -y nodejs npm postgresql nginx curl certbot python3-certbot-nginx
 
-# 5. Setup database
+# 4. Setup database
 sudo systemctl start postgresql
 sudo systemctl enable postgresql
 
-# 6. Configure backend
+# 5. Configure backend
 cd backend
 cp .env.example .env
 # Edit .env with your OpenAI API key and database credentials
 nano .env
 
-# 7. Install and build
+# 6. Install and build
 npm install
 cd ../frontend
 npm install
 npm run build
 
-# 8. Configure Nginx and SSL
+# 7. Configure Nginx and SSL
 # Copy Nginx config from guide below
 sudo nano /etc/nginx/sites-available/quantumrisefoundation.org
 # Then enable and get SSL certificate
 
-# 9. Start backend service
+# 8. Start backend service
 # Create systemd service (see full guide)
 sudo systemctl start rise-backend.service
 
-# 10. Visit https://quantumrisefoundation.org
+# 9. Visit https://quantumrisefoundation.org
 ```
 
 ---
@@ -70,7 +67,7 @@ https://github.com/bmarimuthu-docker/RISE-Fondation.git
 
 Clone with:
 ```bash
-git clone https://github.com/bmarimuthu-docker/RISE-FOUNDATION.git
+git clone https://github.com/bmarimuthu-docker/RISE-Fondation.git
 cd RISE-Fondation
 ```
 
@@ -125,10 +122,18 @@ Fill in:
 ```env
 NODE_ENV=production
 PORT=5000
-DATABASE_URL=postgresql://rise_user:PASSWORD@localhost:5432/rise_foundation
+DB_USER=rise_user
+DB_PASSWORD=your_password
+DB_HOST=localhost
+DB_PORT=5432
+DB_NAME=quantumrise
 OPENAI_API_KEY=sk-proj-YOUR_KEY
-CORS_ORIGIN=https://quantumrisefoundation.org
+JWT_SECRET=change_me
 FRONTEND_URL=https://quantumrisefoundation.org
+API_URL=https://quantumrisefoundation.org
+# Optional (for email features)
+GMAIL_USER=your-gmail@gmail.com
+GMAIL_PASSWORD=your-app-password
 ```
 
 ### 2. Nginx Configuration
@@ -146,9 +151,9 @@ Key parts:
 ```bash
 sudo -u postgres psql
 
-CREATE DATABASE rise_foundation;
+CREATE DATABASE quantumrise;
 CREATE USER rise_user WITH PASSWORD 'your_password';
-GRANT ALL PRIVILEGES ON DATABASE rise_foundation TO rise_user;
+GRANT ALL PRIVILEGES ON DATABASE quantumrise TO rise_user;
 ```
 
 ---

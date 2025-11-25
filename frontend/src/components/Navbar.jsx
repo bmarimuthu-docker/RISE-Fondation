@@ -19,6 +19,7 @@ export default function Navbar({ isLoggedIn, user, onLogout }) {
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center gap-8">
             <Link to="/lessons" className="hover:text-blue-400 transition">Lessons</Link>
+            <Link to="/contact" className="hover:text-blue-400 transition">Contact</Link>
             {isLoggedIn && <Link to="/dashboard" className="hover:text-blue-400 transition">Dashboard</Link>}
             {user?.role === 'admin' && <Link to="/admin" className="hover:text-blue-400 transition">Admin</Link>}
           </div>
@@ -58,6 +59,7 @@ export default function Navbar({ isLoggedIn, user, onLogout }) {
         {isOpen && (
           <div className="md:hidden bg-slate-700 pb-4 space-y-2">
             <Link to="/lessons" className="block px-4 py-2 hover:bg-slate-600 rounded">Lessons</Link>
+            <Link to="/contact" className="block px-4 py-2 hover:bg-slate-600 rounded">Contact</Link>
             {isLoggedIn && <Link to="/dashboard" className="block px-4 py-2 hover:bg-slate-600 rounded">Dashboard</Link>}
             {user?.role === 'admin' && <Link to="/admin" className="block px-4 py-2 hover:bg-slate-600 rounded">Admin</Link>}
             <div className="border-t border-slate-600 pt-2 mt-2">

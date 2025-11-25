@@ -10,6 +10,9 @@ dotenv.config()
 
 const PORT = process.env.PORT || 5000
 const HOST = process.env.HOST || '0.0.0.0'
+const dbConfigured =
+  process.env.DATABASE_URL ||
+  (process.env.DB_HOST && process.env.DB_NAME && process.env.DB_USER)
 
 const server = app.listen(PORT, HOST, () => {
   console.log(`
@@ -21,7 +24,7 @@ const server = app.listen(PORT, HOST, () => {
 
    📍 Address: http://${HOST}:${PORT}
    🏗️  Environment: ${process.env.NODE_ENV || 'development'}
-   💾 Database: ${process.env.DATABASE_URL ? 'Connected' : 'Not configured'}
+   💾 Database: ${dbConfigured ? 'Configured' : 'Not configured'}
    🔑 API Key: ${process.env.OPENAI_API_KEY ? 'Set' : 'Not configured'}
 
 🔗 Endpoints:

@@ -139,7 +139,9 @@ router.post('/verify-email', async (req, res) => {
 
     // Mark email as verified
     await pool.query(
-      `UPDATE users SET is_verified = true, verification_token = NULL WHERE id = $1`,
+      `UPDATE users 
+       SET is_verified = true, verification_token = NULL, verification_token_expire = NULL 
+       WHERE id = $1`,
       [user.id]
     )
 
@@ -246,7 +248,7 @@ router.post('/google-signin', async (req, res) => {
 
     // Check if user exists
     let result = await pool.query(
-      'SELECT * FROM users WHERE email = $1 OR google_id = $1',
+      'SELECT * FROM users WHERE email = $1 OR google_id = $2',
       [email, googleId]
     )
 
